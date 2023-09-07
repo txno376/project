@@ -1,0 +1,30 @@
+server:
+  port: 32465
+
+spring:
+  datasource:
+    username: root
+    password: 3376
+    url: jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+  redis:
+    port: 6379
+    host: localhost
+logging:
+  level:
+    com.project: debug
+mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted
+      logic-not-delete-value: 0
+      logic-delete-value: 1
+tencent:
+  sms:
+    secret-id: "AKIDwkP7nImKp9GAnHat06FDwRiotqkkdKyX"
+    secret-key: "Rp67YxHcxGi3KSWSDl41rUDtSp0whT3V"
+    sdk-app-id: 1400839984
+    sign-name: "学生项目网"
+    # 模板ID映射，key任意设置，value为审核通过模板ID
+    template-id-map:
+      register: "1916022"
+      forget: "project"
