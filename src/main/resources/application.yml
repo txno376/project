@@ -3,8 +3,8 @@ server:
 
 spring:
   datasource:
-    username: root
-    password: 3376
+    username: XXXX
+    password: XXXX
     url: jdbc:mysql://localhost:3306/project?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
   redis:
     port: 6379
@@ -20,11 +20,11 @@ mybatis-plus:
       logic-delete-value: 1
 tencent:
   sms:
-    secret-id: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    secret-key: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
-    sdk-app-id: XXXXX
-    sign-name: "XXXXX"
+    secret-id: "XXXXXXXXXXXXXXXXXXX"
+    secret-key: "XXXXXXXXXXXXXXXXXXX"
+    sdk-app-id: XXXXXXXXXXXXXXXXXXX
+    sign-name: "XXXXXXXXXXXXXXXXXXX"
     # 模板ID映射，key任意设置，value为审核通过模板ID
     template-id-map:
-      register: "XXXXX"
-      forget: "XXXXX"
+      register: "XXXXXXXXXXXXXXXXXXX"
+      forget: "XXXXXXXXXXXXXXXXXXX"
