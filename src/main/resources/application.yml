@@ -20,11 +20,11 @@ mybatis-plus:
       logic-delete-value: 1
 tencent:
   sms:
-    secret-id: "AKIDwkP7nImKp9GAnHat06FDwRiotqkkdKyX"
-    secret-key: "Rp67YxHcxGi3KSWSDl41rUDtSp0whT3V"
-    sdk-app-id: 1400839984
-    sign-name: "学生项目网"
+    secret-id: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    secret-key: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    sdk-app-id: XXXXX
+    sign-name: "XXXXX"
     # 模板ID映射，key任意设置，value为审核通过模板ID
     template-id-map:
-      register: "1916022"
-      forget: "project"
+      register: "XXXXX"
+      forget: "XXXXX"
