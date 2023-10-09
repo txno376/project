@@ -2,6 +2,7 @@ package com.project.sys.service.impl;
 
 import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.project.config.JWTUtils;
 import com.project.config.MyApi;
 import com.project.config.MyConfig;
 import com.project.sys.entity.User;
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import sun.security.provider.MD5;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,10 +44,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         wrapper.eq(User::getUsername,user.getUsername());
         User loginUser = this.baseMapper.selectOne(wrapper);
         // 结果不为空，并且密码和传入密码匹配，则生成token，并将用户信息存入redis
-//        if(loginUser != null && user.getPassword().matches(loginUser.getPassword())){
-        if(loginUser != null ){
-            // 暂时用UUID, 终极方案是jwt
-            String key = "user:" + UUID.randomUUID();
+        if(loginUser != null && user.getPassword().equals(loginUser.getPassword())){
+            Map<String, String> payload = new HashMap<>();
+            payload.put("username",user.getUsername());
+            String token = JWTUtils.getToken(payload);
+            String key = "user:" + token;
             // 存入redis
             loginUser.setPassword(null);
             redisTemplate.opsForValue().set(key,loginUser,30, TimeUnit.MINUTES);
@@ -87,21 +90,23 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return "请勿重复注册";
         }else {
             String str=myConfig.generatedcode(6);
-            redisTemplate.opsForValue().set(key,str,3, TimeUnit.MINUTES);
             System.out.println(str);
-//        boolean test=myApi.DuanXinApi(phone,str);
-//        if (test){
+            redisTemplate.opsForValue().set(key,myConfig.myMD5(str),3, TimeUnit.MINUTES);
+        boolean test=myApi.DuanXinApi(phone,str);
+        if (test){
             return "短信发送成功";
-//        }
         }
-//        return "短信发送失败";
+        }
+        return "短信发送失败";
     }
 
     @Override
     public void register(String phone, String code) {
         String key="phone: "+phone;
         Object obj = redisTemplate.opsForValue().get(key);
+        System.out.println(code);
         if(code.equals(obj)){
+            redisTemplate.delete(key);
             System.out.println("注册dfssnjdknsdj注册");
         }
     }

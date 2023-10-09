@@ -37,6 +37,7 @@ public class UserController {
     }
     @PostMapping("/login")
     public Result<Map<String,Object>> login(@RequestBody User user){
+        System.out.println(user);
         Map<String,Object> data = userService.login(user);
         if(data != null){
             return Result.success(data);
@@ -110,8 +111,10 @@ public class UserController {
 
     @PostMapping("/register")
     public Result<User> register(@RequestParam(value = "phone",required = false) String phone,
-                                 @RequestParam(value = "code",required = false) String code){
-        System.out.println(phone);
+                                 @RequestParam(value = "code",required = false) String code,
+                                 @RequestParam(value = "username",required = false) String username,
+                                 @RequestParam(value = "password",required = false) String password){
+        System.out.println(password);
         System.out.println(code);
         userService.register(phone,code);
         return Result.success("注册用户成功");
